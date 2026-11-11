@@ -34,15 +34,17 @@ function cadastrarAluno() {
 
     alunos.push(aluno);
 
-    console.log(alunos);
+    alert(`Aluno ${aluno.nome} cadastrado com sucesso!`);
 }
 
 function excluirAluno(aluno) {
-    let indice = alunos.indexOf(aluno);
+    let indice = alunos.findIndex((item) => item === aluno);
 
     if (indice !== -1) {
         alunos.splice(indice, 1);
         atualizarTabela();
+
+        alert(`Aluno ${aluno.nome} excluído com sucesso!`);
     }
 }
 
@@ -66,6 +68,7 @@ function salvarEdicao() {
     alunoEmEdicao.curso = curso.value;
     alunoEmEdicao.notaFinal = Number(notaFinal.value);
 
+    alert(`Aluno ${alunoEmEdicao.nome} atualizado com sucesso!`);
     alunoEmEdicao = null;
     botaoCadastro.value = "Cadastrar";
 }
@@ -73,7 +76,7 @@ function salvarEdicao() {
 function atualizarTabela() {
     tabela.innerHTML = "";
 
-    alunos.forEach(function(aluno) {
+    alunos.forEach((aluno) => {
         let linha = tabela.insertRow();
 
         linha.insertCell().textContent = aluno.nome;
