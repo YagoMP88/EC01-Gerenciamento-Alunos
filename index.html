@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,9 +19,9 @@
         <label for="curso">Curso:</label> <br>
         <select name="curso" id="curso" required>
             <option value="" disabled selected>Selecione um curso</option>
-            <option value="javaScript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="java">Java</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
         </select>
         <br> <br>
         <label for="notaFinal">Nota Final:</label> <br>
@@ -41,8 +41,27 @@
             </thead>
             <tbody id="tabela">
             </tbody>
-
         </table>
+        <br>
+        <hr>
+        <h2>Relatórios</h2>
+        <br>
+        <div id="relatorios">
+            <h4>Alunos Aprovados</h4>
+            <p id="relatorioAprovados"></p>
+            <hr>
+            <h4>Média das Notas Finais</h4>
+            <p id="relatorioMediaNotas"></p>
+            <hr>
+            <h4>Média das Idades</h4>
+            <p id="relatorioMediaIdades"></p>
+            <hr>
+            <h4>Alunos em Ordem Alfabética</h4>
+            <p id="relatorioOrdemAlfabetica"></p>
+            <hr>
+            <h4>Quantidade de Alunos por Curso</h4>
+            <p id="relatorioQuantidadeCursos"></p>
+        </div>
     </form>
     <script src="scripts.js"></script>
 </body>

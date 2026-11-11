@@ -41,6 +41,11 @@ function excluirAluno(aluno) {
     let indice = alunos.findIndex((item) => item === aluno);
 
     if (indice !== -1) {
+        if (alunoEmEdicao === aluno) {
+            alunoEmEdicao = null;
+            botaoCadastro.value = "Cadastrar";
+            document.querySelector("form").reset();
+        }
         alunos.splice(indice, 1);
         atualizarTabela();
 
@@ -108,6 +113,71 @@ function atualizarTabela() {
             editarAluno(aluno);
         });
     });
+      gerarRelatorios();
+}
+
+function gerarRelatorios() {
+    //Aprovados
+    let aprovados = alunos.filter((aluno) => aluno.isAprovado());
+
+    let nomesAprovados = aprovados.map((aluno) => aluno.nome);
+
+    let resultado = document.getElementById("relatorioAprovados");
+
+    resultado.textContent = nomesAprovados.length > 0
+        ? nomesAprovados.join(", ")
+        : "Nenhum aluno aprovado.";
+
+    //Media Nota    
+    let somaNotas = alunos.reduce((soma, aluno) => soma + aluno.notaFinal, 0);
+
+    let mediaNotas = alunos.length > 0
+        ? somaNotas / alunos.length
+        : 0;
+
+    let resultadoMedia = document.getElementById("relatorioMediaNotas");
+
+    resultadoMedia.textContent = mediaNotas.toFixed(2);
+
+    // Média das idades
+    let somaIdades = alunos.reduce((soma, aluno) => soma + aluno.idade, 0);
+
+    let mediaIdades = alunos.length > 0
+        ? somaIdades / alunos.length
+        : 0;
+
+    let resultadoIdades = document.getElementById("relatorioMediaIdades");
+
+    resultadoIdades.textContent = `${mediaIdades.toFixed(2)} anos`;    
+
+    // Alunos em ordem alfabética
+    let nomesOrdenados = alunos
+        .map((aluno) => aluno.nome)
+        .sort((a, b) => a.localeCompare(b, "pt-BR"));
+
+    let resultadoOrdem = document.getElementById("relatorioOrdemAlfabetica");
+
+    resultadoOrdem.textContent = nomesOrdenados.length > 0
+        ? nomesOrdenados.join(", ")
+        : "Nenhum aluno cadastrado.";
+    
+    // Quantidade de alunos por curso
+    let quantidadeCursos = {
+        JavaScript: 0,
+        Python: 0,
+        Java: 0
+    };
+
+    alunos.forEach((aluno) => {
+        quantidadeCursos[aluno.curso]++;
+    });
+
+    let resultadoCursos = document.getElementById("relatorioQuantidadeCursos");
+
+    resultadoCursos.textContent =
+        `JavaScript: ${quantidadeCursos.JavaScript} | ` +
+        `Python: ${quantidadeCursos.Python} | ` +
+        `Java: ${quantidadeCursos.Java}`;    
 }
 
 document.querySelector("form").addEventListener("submit", function(event) {
@@ -122,5 +192,4 @@ document.querySelector("form").addEventListener("submit", function(event) {
     atualizarTabela();
     document.querySelector("form").reset();
 });
-
-
+gerarRelatorios();
