@@ -7,13 +7,30 @@ let tabela = document.getElementById("tabela");
 let alunos = [];
 let alunoEmEdicao = null;
 
+class Aluno{
+    constructor(nome,idade,curso,notaFinal){
+        this.nome = nome;
+        this.idade = idade;
+        this.curso = curso;
+        this.notaFinal = notaFinal;
+    }
+
+    isAprovado(){
+        return this.notaFinal >=7;
+    }
+
+    toString() {
+    return `Nome: ${this.nome}, Idade: ${this.idade}, Curso: ${this.curso}, Nota Final: ${this.notaFinal}`;
+    }
+}
+
 function cadastrarAluno() {
-    let aluno = {
-        nome: nome.value,
-        idade: Number(idade.value),
-        curso: curso.value,
-        notaFinal: Number(notaFinal.value)
-    };
+    let aluno = new Aluno(
+        nome.value,
+        Number(idade.value),
+        curso.value,
+        Number(notaFinal.value)
+    );
 
     alunos.push(aluno);
 
